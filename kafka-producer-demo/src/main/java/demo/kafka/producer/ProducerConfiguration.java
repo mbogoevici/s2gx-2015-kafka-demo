@@ -16,7 +16,6 @@
 
 package demo.kafka.producer;
 
-
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,18 +40,40 @@ public class ProducerConfiguration {
 
 	public static final StringSerializer STRING_SERIALIZER = new StringSerializer();
 
+	private String topic = "topic";
+
+	private int partition = 0;
+
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+	public int getPartition() {
+		return partition;
+	}
+
+	public void setPartition(int partition) {
+		this.partition = partition;
+	}
+
 	@Bean
 	IntegrationFlow producer() {
-		KafkaProducerMessageHandlerSpec kafkaProducerMessageHandlerSpec  =
+		KafkaProducerMessageHandlerSpec kafkaProducerMessageHandlerSpec =
 				Kafka.outboundChannelAdapter().addProducer(
-						new ProducerMetadata<>("event-bus", String.class, String.class,
+						new ProducerMetadata<>("s2gx", String.class, String.class,
 								STRING_SERIALIZER, STRING_SERIALIZER), "localhost:9092");
 		return flow -> flow.handle(kafkaProducerMessageHandlerSpec);
 	}
 
 	@Bean
-	CommandLineRunner run(@Qualifier("producer.input")MessageChannel messageChannel) {
-		return args -> messageChannel.send(MessageBuilder.withPayload("Hi")
-				.setHeader(KafkaHeaders.TOPIC, "another-topic").build());
+	CommandLineRunner run(@Qualifier("producer.input") MessageChannel messageChannel) {
+		return args -> messageChannel.send(MessageBuilder.withPayload("Hello world")
+				.setHeader("s2gx", topic)
+				.setHeader(KafkaHeaders.PARTITION_ID, partition)
+				.build());
 	}
 }

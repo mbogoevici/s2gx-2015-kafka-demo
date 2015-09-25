@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package demo.kafka.producer;
+package s2gx2015.demo.spring.cloud.stream.rxjava;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * @author Marius Bogoevici
  */
 @SpringBootApplication
-@EnableConfigurationProperties(ProducerConfiguration.class)
-public class KafkaProducerLauncher {
+public class WaiterApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KafkaProducerLauncher.class);
+		SpringApplication.run(WaiterApplication.class);
 	}
 }

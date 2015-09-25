@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+    maven {
+        url "https://repo.spring.io/libs-snapshot"
+    }
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    compile "org.springframework.cloud:spring-cloud-stream-rxjava:1.0.0.BUILD-SNAPSHOT"
+    compile ("org.springframework.cloud:spring-cloud-stream-binder-kafka:1.0.0.BUILD-SNAPSHOT") {
+        exclude group:"org.slf4j"
+    }
+    compile "io.reactivex:rxjava:1.0.14"
+    testCompile "junit:junit:4.11"
+}

@@ -39,7 +39,7 @@ public class ConsumerConfiguration {
 	@Bean
 	IntegrationFlow consumer() {
 		KafkaMessageDrivenChannelAdapterSpec kafkaMessageDrivenChannelAdapterSpec  =
-				Kafka.messageDriverChannelAdapter(new DefaultConnectionFactory(new ZookeeperConfiguration("localhost:2181")), "event-bus")
+				Kafka.messageDriverChannelAdapter(new DefaultConnectionFactory(new ZookeeperConfiguration("localhost:2181")), "s2gx")
 						.configureListenerContainer(kafkaMessageListenerContainerSpec ->  {
 							kafkaMessageListenerContainerSpec.offsetManager(offsetManager());
 						});

@@ -14,20 +14,24 @@
  * limitations under the License.
  */
 
-package demo.kafka.producer;
+package s2gx2015.demo.spring.cloud.stream.rxjava;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.stream.annotation.Input;
+import org.springframework.cloud.stream.annotation.Output;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.SubscribableChannel;
 
 /**
  * @author Marius Bogoevici
  */
-@SpringBootApplication
-@EnableConfigurationProperties(ProducerConfiguration.class)
-public class KafkaProducerLauncher {
+public interface Waiter {
 
-	public static void main(String[] args) {
-		SpringApplication.run(KafkaProducerLauncher.class);
-	}
+	@Input("hotDrinks")
+	SubscribableChannel hotDrinks();
+
+	@Input("coldDrinks")
+	SubscribableChannel coldDrinks();
+
+	@Output("deliveries")
+	MessageChannel deliveries();
 }
